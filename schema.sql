@@ -57,12 +57,13 @@ CREATE TABLE participants (
     id integer primary key autoincrement,
     groupsId integer not null,
     usersId integer not null,
+    active boolean not null,
     FOREIGN KEY(groupsId) REFERENCES groups(id),
     FOREIGN KEY(usersId) REFERENCES users(id)
 );
 
-INSERT INTO participants (id, groupsId, usersId)
-VALUES (null, 1,1);
-INSERT INTO participants (id, groupsId, usersId)
-VALUES (null, 1,2);
+INSERT INTO participants (id, groupsId, usersId, active)
+VALUES (null, 1, 1, 1);
+INSERT INTO participants (id, groupsId, usersId, active)
+VALUES (null, 1, 2, 0);
 

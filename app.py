@@ -58,15 +58,27 @@ def participants():
         groupsId = request.json.get('groupsId', "")
         usersId = request.json.get('usersId', "")
         db = create_connection()
-        db.execute('INSERT INTO participants VALUES (?, ?, ?);',
-                   [None, groupsId, usersId])
+        db.execute('INSERT INTO participants VALUES (?, ?, ?, ?);',
+                   [None, groupsId, usersId, 1])
         db.commit()
         return "Dodano uzytkonika o id:  "+str(usersId)+" do grupy o id: "+str(groupsId)+"\n"
 
     db = create_connection()
-    data = db.execute('SELECT * FROM participants ORDER BY id ;')
+    data = db.execute('SELECT * FROM participants WHERE active=1 ORDER BY id ;')
     participants = data.fetchall()
     return json.dumps([dict(participant)for participant in participants])
+
+
+@app.route('/deleteParticipant', methods=['POST'])
+def delete_participant():
+    if request.method == 'POST':
+        groupsId = request.json.get('groupsId', "")
+        usersId = request.json.get('usersId', "")
+        db = create_connection()
+        db.execute('UPDATE participants SET active = 0 WHERE usersId = ? AND groupsId = ? ;',
+                   [usersId, groupsId])
+        db.commit()
+        return "Usunieto uzytkonika o id:  "+str(usersId)+" z grupy o id: "+str(groupsId)+"\n"
 
 
 if __name__ == '__main__':
