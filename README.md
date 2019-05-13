@@ -8,6 +8,8 @@ sqlite3 db.sqlite < schema.sql
 
 ## REST API
 
+### Select example
+
 * [movies](http://127.0.0.1:5000/movies) - Get all movies
 * [users](http://127.0.0.1:5000/users) - Get all users
 * [seans](http://127.0.0.1:5000/seans) - Get all seans
@@ -33,6 +35,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 
 curl -X POST -H "Content-Type: application/json" -d '{
     "groupsId": "1",
-    "usersId": "1"
+    "usersId": "1",
+    "active": "0"
 }' http://localhost:5000/deleteParticipant
 

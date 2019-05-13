@@ -74,11 +74,12 @@ def delete_participant():
     if request.method == 'POST':
         groupsId = request.json.get('groupsId', "")
         usersId = request.json.get('usersId', "")
+        active = request.json.get('active', "")
         db = create_connection()
-        db.execute('UPDATE participants SET active = 0 WHERE usersId = ? AND groupsId = ? ;',
-                   [usersId, groupsId])
+        db.execute('UPDATE participants SET active = ? WHERE usersId = ? AND groupsId = ? ;',
+                   [active, usersId, groupsId])
         db.commit()
-        return "Usunieto uzytkonika o id:  "+str(usersId)+" z grupy o id: "+str(groupsId)+"\n"
+        return "Zaktualizowno uzytkonika o id:  "+str(usersId)+" z grupy o id: "+str(groupsId)+"\n"
 
 
 if __name__ == '__main__':
