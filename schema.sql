@@ -44,12 +44,25 @@ DROP TABLE IF EXISTS groups;
 CREATE TABLE groups (
     id integer primary key autoincrement,
     seansId integer not null,
+    FOREIGN KEY(seansId) REFERENCES seans(id)
+);
+
+INSERT INTO groups (id, seansId)
+VALUES (null, 1);
+INSERT INTO groups (id, seansId)
+VALUES (null, 2);
+
+DROP TABLE IF EXISTS participants;
+CREATE TABLE participants (
+    id integer primary key autoincrement,
+    groupsId integer not null,
     usersId integer not null,
-    FOREIGN KEY(seansId) REFERENCES seans(id),
+    FOREIGN KEY(groupsId) REFERENCES groups(id),
     FOREIGN KEY(usersId) REFERENCES users(id)
 );
 
-INSERT INTO groups (id, seansId, usersId)
+INSERT INTO participants (id, groupsId, usersId)
 VALUES (null, 1,1);
-INSERT INTO groups (id, seansId, usersId)
+INSERT INTO participants (id, groupsId, usersId)
 VALUES (null, 1,2);
+

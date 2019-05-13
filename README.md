@@ -12,5 +12,6 @@ sqlite3 db.sqlite < schema.sql
 * [users](http://127.0.0.1:5000/users) - Get all users
 * [seans](http://127.0.0.1:5000/seans) - Get all seans
 * [groups](http://127.0.0.1:5000/groups) - Get all groups
+* [participants](http://127.0.0.1:5000/participants) - Get all participants
 
 

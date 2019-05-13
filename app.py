@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import sqlite3
 import json
 
@@ -38,10 +38,26 @@ def seans():
 
 @app.route('/groups', methods=['GET', 'POST'])
 def groups():
+    if request.method == 'POST':
+        seansId = request.json.get('seansId', "")
+        db = create_connection()
+        db.execute('INSERT INTO users VALUES (?, ?);',
+                   [None, seansId])
+        db.commit()
+        return "Dodano nowa grupe na seans o id:  "+str(seansId)+"\n"
+
     db = create_connection()
     data = db.execute('SELECT * FROM groups ORDER BY id ;')
     groups = data.fetchall()
     return json.dumps([dict(group)for group in groups])
+
+
+@app.route('/participants', methods=['GET', 'POST'])
+def participants():
+    db = create_connection()
+    data = db.execute('SELECT * FROM participants ORDER BY id ;')
+    participants = data.fetchall()
+    return json.dumps([dict(participant)for participant in participants])
 
 
 if __name__ == '__main__':
