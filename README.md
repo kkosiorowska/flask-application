@@ -1,6 +1,6 @@
 # flask-application
 
-### Database
+## Database
 
 How to create  db.sqlite file 
 
@@ -13,5 +13,19 @@ sqlite3 db.sqlite < schema.sql
 * [seans](http://127.0.0.1:5000/seans) - Get all seans
 * [groups](http://127.0.0.1:5000/groups) - Get all groups
 * [participants](http://127.0.0.1:5000/participants) - Get all participants
+
+* Add new group
+
+curl -X POST -H "Content-Type: application/json" -d '{
+    "seansId": "2"
+}' http://localhost:5000/groups
+
+* Add new person to group
+
+curl -X POST -H "Content-Type: application/json" -d '{
+    "groupsId": "1",
+    "usersId": "3"
+}' http://localhost:5000/participants
+
 
 

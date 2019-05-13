@@ -41,7 +41,7 @@ def groups():
     if request.method == 'POST':
         seansId = request.json.get('seansId', "")
         db = create_connection()
-        db.execute('INSERT INTO users VALUES (?, ?);',
+        db.execute('INSERT INTO groups VALUES (?, ?);',
                    [None, seansId])
         db.commit()
         return "Dodano nowa grupe na seans o id:  "+str(seansId)+"\n"
@@ -54,6 +54,15 @@ def groups():
 
 @app.route('/participants', methods=['GET', 'POST'])
 def participants():
+    if request.method == 'POST':
+        groupsId = request.json.get('groupsId', "")
+        usersId = request.json.get('usersId', "")
+        db = create_connection()
+        db.execute('INSERT INTO participants VALUES (?, ?, ?);',
+                   [None, groupsId, usersId])
+        db.commit()
+        return "Dodano uzytkonika o id:  "+str(usersId)+" do grupy o id: "+str(groupsId)+"\n"
+
     db = create_connection()
     data = db.execute('SELECT * FROM participants ORDER BY id ;')
     participants = data.fetchall()
